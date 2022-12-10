@@ -19,10 +19,12 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-#define WIFI_SSID "SWEBI COFFEE 1"
-#define WIFI_PASSWORD "250tenlua"
+// #define WIFI_SSID "SWEBI COFFEE 1"
+// #define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
+#define WIFI_SSID "Huy Thong"
+#define WIFI_PASSWORD "0978829111"
 #define LAMPPIN D4
 #define BUZZLEPIN D8
 #define BUTTONPIN D3
@@ -58,7 +60,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "asia.pool.ntp.org", utcOffsetInSeconds);
 DS3232RTC myRTC;
 TM1637Display display(CLK, DIO);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
 unsigned long sendDataPrevMillis = 0;
 
@@ -344,14 +346,17 @@ void setup()
   syncDataFirebase();
   pinMode(LAMPPIN, OUTPUT);
   pinMode(BUZZLEPIN, OUTPUT);
+  pinMode(BUTTONPIN, INPUT_PULLUP);
   dht.begin();
   Wire.begin();
   myRTC.begin();
   display.setBrightness(5);
   lcd.begin();
-  lcd.setCursor(0, 0);
+  lcd.setCursor(2, 0);
+  lcd.print("Smart Desk Clock");
+  lcd.setCursor(2, 1);
   lcd.print("Nguyen Duy Thanh");
-  lcd.setCursor(0, 1);
+  lcd.setCursor(4, 2);
   lcd.print("Do Huy Thong");
   delay(3000);
   lcd.clear();
@@ -426,8 +431,8 @@ void showTemp()
     circleBlink = millis();
   }
 
-  // Add new record Temppperture each 15 minutes
-  if (millis() - syncTemp >= 1100)
+  // Add new record Tempperture each 1 seconds
+  if (millis() - syncTemp >= 1000)
   {
     addRecordTemperature(stampTime, temperature_celsius);
     syncTemp = millis();
@@ -470,17 +475,17 @@ void showTimeFrommyRTC()
   time_t stampTime = now();
 
   lcd.setCursor(0, 0);
-  lcd.print("Date: ");
-  lcd.setCursor(6, 0);
+  lcd.print(dayStr(weekday(stampTime)));
+  lcd.setCursor(10, 0);
   lcd.print(day(stampTime), DEC);
   lcd.print("/");
   lcd.print(month(stampTime), DEC);
   lcd.print("/");
   lcd.print(year(stampTime), DEC);
 
-  lcd.setCursor(0, 1);
+  lcd.setCursor(3, 1);
   lcd.print("Time: ");
-  lcd.setCursor(6, 1);
+  lcd.setCursor(9, 1);
   if (hour(stampTime) <= 9)
   {
     lcd.print("0");
@@ -510,6 +515,37 @@ void showTimeFrommyRTC()
   {
     lcd.print(second(stampTime), DEC);
   }
+
+  if (isAlarmTimeon())
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:On ");
+  }
+  else
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:Off");
+  }
+
+  if (isSleepingTimeON())
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:On ");
+  }
+  else
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:Off");
+  }
+
+  float humidity = dht.readHumidity();
+  lcd.setCursor(0, 3);
+  lcd.print("Humidity: ");
+  lcd.setCursor(10, 3);
+  lcd.print(humidity);
+  lcd.setCursor(15, 3);
+  lcd.print("%");
+
   /*
     Serial.println(hour(t));
       Serial.println(minute(t));
@@ -553,15 +589,15 @@ void setAlarm()
     {
       setBUZZLE = true;
     }
-    else if (timeNow - timeSet > 0 && timeNow - timeSet >= 45)
-    {
-      setBUZZLE = false;
-      setAlarmOff(false);
-    }
   }
   else
   {
     setBUZZLE = false;
+  }
+
+  if (digitalRead(BUTTONPIN) == 0)
+  {
+    setAlarmOff(false);
   }
 
   if (setBUZZLE)
@@ -583,10 +619,4 @@ void setAlarm()
   {
     digitalWrite(BUZZLEPIN, LOW);
   }
-  /*
-    if (digitalRead(BUTTONPIN) == 0)
-    {
-      setAlarmOff(false);
-    }
-  */
 }

@@ -20,10 +20,12 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-
-
+// #define WIFI_SSID "SWEBI COFFEE 1"
+// #define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
+
+
 
 
 
@@ -59,7 +61,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "asia.pool.ntp.org", utcOffsetInSeconds);
 DS3232RTC myRTC;
 TM1637Display display(D5, D6);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
 unsigned long sendDataPrevMillis = 0;
 
@@ -266,7 +268,7 @@ void setup()
 
   Serial.begin(115200);
 
-  WiFi.begin("SWEBI COFFEE 1", "250tenlua");
+  WiFi.begin("Huy Thong", "0978829111");
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -366,18 +368,21 @@ void setup()
 
 
   */
-# 344 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+# 346 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
   syncDataFirebase();
   pinMode(D4, 0x01);
   pinMode(D8, 0x01);
+  pinMode(D3, 0x02);
   dht.begin();
   Wire.begin();
   myRTC.begin();
   display.setBrightness(5);
   lcd.begin();
-  lcd.setCursor(0, 0);
+  lcd.setCursor(2, 0);
+  lcd.print("Smart Desk Clock");
+  lcd.setCursor(2, 1);
   lcd.print("Nguyen Duy Thanh");
-  lcd.setCursor(0, 1);
+  lcd.setCursor(4, 2);
   lcd.print("Do Huy Thong");
   delay(3000);
   lcd.clear();
@@ -452,8 +457,8 @@ void showTemp()
     circleBlink = millis();
   }
 
-  // Add new record Temppperture each 15 minutes
-  if (millis() - syncTemp >= 1100)
+  // Add new record Tempperture each 1 seconds
+  if (millis() - syncTemp >= 1000)
   {
     addRecordTemperature(stampTime, temperature_celsius);
     syncTemp = millis();
@@ -496,17 +501,17 @@ void showTimeFrommyRTC()
   time_t stampTime = now();
 
   lcd.setCursor(0, 0);
-  lcd.print("Date: ");
-  lcd.setCursor(6, 0);
+  lcd.print(dayStr(weekday(stampTime)));
+  lcd.setCursor(10, 0);
   lcd.print(day(stampTime), 10);
   lcd.print("/");
   lcd.print(month(stampTime), 10);
   lcd.print("/");
   lcd.print(year(stampTime), 10);
 
-  lcd.setCursor(0, 1);
+  lcd.setCursor(3, 1);
   lcd.print("Time: ");
-  lcd.setCursor(6, 1);
+  lcd.setCursor(9, 1);
   if (hour(stampTime) <= 9)
   {
     lcd.print("0");
@@ -536,6 +541,37 @@ void showTimeFrommyRTC()
   {
     lcd.print(second(stampTime), 10);
   }
+
+  if (isAlarmTimeon())
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:On ");
+  }
+  else
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:Off");
+  }
+
+  if (isSleepingTimeON())
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:On ");
+  }
+  else
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:Off");
+  }
+
+  float humidity = dht.readHumidity();
+  lcd.setCursor(0, 3);
+  lcd.print("Humidity: ");
+  lcd.setCursor(10, 3);
+  lcd.print(humidity);
+  lcd.setCursor(15, 3);
+  lcd.print("%");
+
   /*
 
     Serial.println(hour(t));
@@ -545,7 +581,7 @@ void showTimeFrommyRTC()
       Serial.println(second(t));
 
   */
-# 518 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+# 554 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 }
 
 void setTimeSleeping()
@@ -584,15 +620,15 @@ void setAlarm()
     {
       setBUZZLE = true;
     }
-    else if (timeNow - timeSet > 0 && timeNow - timeSet >= 45)
-    {
-      setBUZZLE = false;
-      setAlarmOff(false);
-    }
   }
   else
   {
     setBUZZLE = false;
+  }
+
+  if (digitalRead(D3) == 0)
+  {
+    setAlarmOff(false);
   }
 
   if (setBUZZLE)
@@ -614,16 +650,4 @@ void setAlarm()
   {
     digitalWrite(D8, 0x0);
   }
-  /*
-
-    if (digitalRead(BUTTONPIN) == 0)
-
-    {
-
-      setAlarmOff(false);
-
-    }
-
-  */
-# 592 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 }

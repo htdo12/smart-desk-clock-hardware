@@ -21,10 +21,12 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-#define WIFI_SSID "SWEBI COFFEE 1"
-#define WIFI_PASSWORD "250tenlua"
+// #define WIFI_SSID "SWEBI COFFEE 1"
+// #define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
+#define WIFI_SSID "Huy Thong"
+#define WIFI_PASSWORD "0978829111"
 #define LAMPPIN D4
 #define BUZZLEPIN D8
 #define BUTTONPIN D3
@@ -60,7 +62,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "asia.pool.ntp.org", utcOffsetInSeconds);
 DS3232RTC myRTC;
 TM1637Display display(CLK, DIO);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
 unsigned long sendDataPrevMillis = 0;
 
@@ -76,57 +78,57 @@ time_t startsleepingtime = 1669957393;
 time_t endsleepingtime = 1669957393;
 bool setBUZZLE = false;
 
-#line 77 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 79 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool convertStringToBool(String value);
-#line 81 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 83 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void streamCallback(MultiPathStream stream);
-#line 143 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 145 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void streamTimeoutCallback(bool timeout);
-#line 151 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 153 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isSleepingTimeON();
-#line 155 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 157 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isAlarmTimeon();
-#line 159 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 161 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isLampOn();
-#line 163 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 165 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getAlarmTime();
-#line 167 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 169 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getStartSleepingTime();
-#line 171 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 173 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getEndSleepingTime();
-#line 175 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 177 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 int getLampValue();
-#line 179 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 181 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void syncDataFirebase();
-#line 219 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 221 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setAlarmOff(bool isset);
-#line 226 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 228 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setIsLightforSleeping(bool isset);
-#line 233 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 235 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setRealTimeTemperature(float temperature);
-#line 240 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 242 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setRealTimeHumidity(float humidity);
-#line 247 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 249 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void addRecordTemperature(time_t timeStamp, float temperature);
-#line 254 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 256 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setSlider(int value);
-#line 263 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 265 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setup();
-#line 361 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 366 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void loop();
-#line 370 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 375 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void lampController();
-#line 386 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 391 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void showTemp();
-#line 437 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 442 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setTime();
-#line 468 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 473 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void showTimeFrommyRTC();
-#line 520 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 556 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setTimeSleeping();
-#line 545 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 581 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setAlarm();
-#line 77 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 79 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool convertStringToBool(String value)
 {
   return value == "true";
@@ -397,14 +399,17 @@ void setup()
   syncDataFirebase();
   pinMode(LAMPPIN, OUTPUT);
   pinMode(BUZZLEPIN, OUTPUT);
+  pinMode(BUTTONPIN, INPUT_PULLUP);
   dht.begin();
   Wire.begin();
   myRTC.begin();
   display.setBrightness(5);
   lcd.begin();
-  lcd.setCursor(0, 0);
+  lcd.setCursor(2, 0);
+  lcd.print("Smart Desk Clock");
+  lcd.setCursor(2, 1);
   lcd.print("Nguyen Duy Thanh");
-  lcd.setCursor(0, 1);
+  lcd.setCursor(4, 2);
   lcd.print("Do Huy Thong");
   delay(3000);
   lcd.clear();
@@ -479,8 +484,8 @@ void showTemp()
     circleBlink = millis();
   }
 
-  // Add new record Temppperture each 15 minutes
-  if (millis() - syncTemp >= 1100)
+  // Add new record Tempperture each 1 seconds
+  if (millis() - syncTemp >= 1000)
   {
     addRecordTemperature(stampTime, temperature_celsius);
     syncTemp = millis();
@@ -523,17 +528,17 @@ void showTimeFrommyRTC()
   time_t stampTime = now();
 
   lcd.setCursor(0, 0);
-  lcd.print("Date: ");
-  lcd.setCursor(6, 0);
+  lcd.print(dayStr(weekday(stampTime)));
+  lcd.setCursor(10, 0);
   lcd.print(day(stampTime), DEC);
   lcd.print("/");
   lcd.print(month(stampTime), DEC);
   lcd.print("/");
   lcd.print(year(stampTime), DEC);
 
-  lcd.setCursor(0, 1);
+  lcd.setCursor(3, 1);
   lcd.print("Time: ");
-  lcd.setCursor(6, 1);
+  lcd.setCursor(9, 1);
   if (hour(stampTime) <= 9)
   {
     lcd.print("0");
@@ -563,6 +568,37 @@ void showTimeFrommyRTC()
   {
     lcd.print(second(stampTime), DEC);
   }
+
+  if (isAlarmTimeon())
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:On ");
+  }
+  else
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Alarm:Off");
+  }
+
+  if (isSleepingTimeON())
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:On ");
+  }
+  else
+  {
+    lcd.setCursor(10, 2);
+    lcd.print("Sleep:Off");
+  }
+
+  float humidity = dht.readHumidity();
+  lcd.setCursor(0, 3);
+  lcd.print("Humidity: ");
+  lcd.setCursor(10, 3);
+  lcd.print(humidity);
+  lcd.setCursor(15, 3);
+  lcd.print("%");
+
   /*
     Serial.println(hour(t));
       Serial.println(minute(t));
@@ -606,15 +642,15 @@ void setAlarm()
     {
       setBUZZLE = true;
     }
-    else if (timeNow - timeSet > 0 && timeNow - timeSet >= 45)
-    {
-      setBUZZLE = false;
-      setAlarmOff(false);
-    }
   }
   else
   {
     setBUZZLE = false;
+  }
+
+  if (digitalRead(BUTTONPIN) == 0)
+  {
+    setAlarmOff(false);
   }
 
   if (setBUZZLE)
@@ -636,10 +672,4 @@ void setAlarm()
   {
     digitalWrite(BUZZLEPIN, LOW);
   }
-  /*
-    if (digitalRead(BUTTONPIN) == 0)
-    {
-      setAlarmOff(false);
-    }
-  */
 }
