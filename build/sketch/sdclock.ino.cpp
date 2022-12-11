@@ -21,12 +21,10 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-// #define WIFI_SSID "SWEBI COFFEE 1"
-// #define WIFI_PASSWORD "250tenlua"
+#define WIFI_SSID "SWEBI COFFEE 1"
+#define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
-#define WIFI_SSID "Huy Thong"
-#define WIFI_PASSWORD "0978829111"
 #define LAMPPIN D4
 #define BUZZLEPIN D8
 #define BUTTONPIN D3
@@ -78,57 +76,57 @@ time_t startsleepingtime = 1669957393;
 time_t endsleepingtime = 1669957393;
 bool setBUZZLE = false;
 
-#line 79 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 77 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool convertStringToBool(String value);
-#line 83 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 81 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void streamCallback(MultiPathStream stream);
-#line 145 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 143 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void streamTimeoutCallback(bool timeout);
-#line 153 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 151 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isSleepingTimeON();
-#line 157 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 155 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isAlarmTimeon();
-#line 161 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 159 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool isLampOn();
-#line 165 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 163 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getAlarmTime();
-#line 169 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 167 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getStartSleepingTime();
-#line 173 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 171 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 time_t getEndSleepingTime();
-#line 177 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 175 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 int getLampValue();
-#line 181 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 179 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void syncDataFirebase();
-#line 221 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 219 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setAlarmOff(bool isset);
-#line 228 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 226 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setIsLightforSleeping(bool isset);
-#line 235 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 233 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setRealTimeTemperature(float temperature);
-#line 242 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 240 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setRealTimeHumidity(float humidity);
-#line 249 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 247 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void addRecordTemperature(time_t timeStamp, float temperature);
-#line 256 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 254 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setSlider(int value);
-#line 265 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 263 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setup();
-#line 366 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 364 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void loop();
-#line 375 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 373 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void lampController();
-#line 391 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 389 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void showTemp();
-#line 442 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 440 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setTime();
-#line 473 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 471 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void showTimeFrommyRTC();
-#line 556 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 554 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setTimeSleeping();
-#line 581 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 579 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 void setAlarm();
-#line 79 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+#line 77 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 bool convertStringToBool(String value)
 {
   return value == "true";

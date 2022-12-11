@@ -20,12 +20,10 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-// #define WIFI_SSID "SWEBI COFFEE 1"
-// #define WIFI_PASSWORD "250tenlua"
+
+
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
-
-
 
 
 
@@ -268,7 +266,7 @@ void setup()
 
   Serial.begin(115200);
 
-  WiFi.begin("Huy Thong", "0978829111");
+  WiFi.begin("SWEBI COFFEE 1", "250tenlua");
   Serial.print("Connecting to Wi-Fi");
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -368,7 +366,7 @@ void setup()
 
 
   */
-# 346 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+# 344 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
   syncDataFirebase();
   pinMode(D4, 0x01);
   pinMode(D8, 0x01);
@@ -581,7 +579,7 @@ void showTimeFrommyRTC()
       Serial.println(second(t));
 
   */
-# 554 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
+# 552 "/Users/huit/Arduino Project/smart_desk_clock/sdclock.ino"
 }
 
 void setTimeSleeping()

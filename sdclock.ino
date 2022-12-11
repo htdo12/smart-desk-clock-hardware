@@ -19,12 +19,10 @@
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-// #define WIFI_SSID "SWEBI COFFEE 1"
-// #define WIFI_PASSWORD "250tenlua"
+#define WIFI_SSID "SWEBI COFFEE 1"
+#define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
-#define WIFI_SSID "Huy Thong"
-#define WIFI_PASSWORD "0978829111"
 #define LAMPPIN D4
 #define BUZZLEPIN D8
 #define BUTTONPIN D3
