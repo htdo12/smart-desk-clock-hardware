@@ -23,8 +23,10 @@
 #define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
+// #define WIFI_SSID "htdo"
+// #define WIFI_PASSWORD "99999991"
 #define LAMPPIN D4
-#define BUZZLEPIN D8
+#define BUZZERPIN D8
 #define BUTTONPIN D3
 // For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
@@ -72,7 +74,7 @@ time_t alarmtime = 1669957393;
 int lightslider = 0;
 time_t startsleepingtime = 1669957393;
 time_t endsleepingtime = 1669957393;
-bool setBUZZLE = false;
+bool setBUZZER = false;
 
 bool convertStringToBool(String value)
 {
@@ -223,6 +225,13 @@ void setAlarmOff(bool isset)
     Serial.println("setAlarmOff error");
   }
 }
+void setSleepingTimeOff(bool isset)
+{
+  if (!Firebase.RTDB.setBoolAsync(&fdbo, "/get/sleepingtime/isset", isset))
+  {
+    Serial.println("setSleepingTimeOff error");
+  }
+}
 void setIsLightforSleeping(bool isset)
 {
   if (!Firebase.RTDB.setBoolAsync(&fdbo, "/get/lamp/islight", isset))
@@ -343,7 +352,7 @@ void setup()
   */
   syncDataFirebase();
   pinMode(LAMPPIN, OUTPUT);
-  pinMode(BUZZLEPIN, OUTPUT);
+  pinMode(BUZZERPIN, OUTPUT);
   pinMode(BUTTONPIN, INPUT_PULLUP);
   dht.begin();
   Wire.begin();
@@ -400,10 +409,6 @@ void showTemp()
       SEG_A | SEG_D | SEG_E | SEG_F // C
   };
 
-  // float tempur = myRTC.temperature();
-
-  // float temperature_celsius = tempur / 4.0;
-  // float hum = dht.readHumidity();
   float temperature_celsius = dht.readTemperature();
   float humidity = dht.readHumidity();
 
@@ -442,28 +447,29 @@ void setTime()
   while (timeClient.update())
     ;
   time_t epochTime = timeClient.getEpochTime();
-  // Serial.println(epochTime);
+  /*
+  Serial.println(epochTime);
   int currentHour = timeClient.getHours();
-  // Serial.print("Hour: ");
-  // Serial.println(currentHour);
+  Serial.print("Hour: ");
+  Serial.println(currentHour);
   int currentMinute = timeClient.getMinutes();
-  // Serial.print("Minutes: ");
-  // Serial.println(currentMinute);
+  Serial.print("Minutes: ");
+  Serial.println(currentMinute);
   int currentSecond = timeClient.getSeconds();
-  // Serial.print("Seconds: ");
-  // Serial.println(currentSecond);
+  Serial.print("Seconds: ");
+  Serial.println(currentSecond);
   struct tm *ptm = gmtime((time_t *)&epochTime);
 
   int monthDay = ptm->tm_mday;
-  // Serial.print("Month day: ");
-  // Serial.println(monthDay);
+  Serial.print("Month day: ");
+  Serial.println(monthDay);
   int currentMonth = ptm->tm_mon + 1;
-  // Serial.print("Month: ");
-  // Serial.println(currentMonth);
+  Serial.print("Month: ");
+  Serial.println(currentMonth);
   int currentYear = ptm->tm_year + 1900;
-  // Serial.print("Year: ");
-  // Serial.println(currentYear);
-
+  Serial.print("Year: ");
+  Serial.println(currentYear);
+  */
   myRTC.set(epochTime);
   setTime(epochTime);
 }
@@ -546,8 +552,8 @@ void showTimeFrommyRTC()
 
   /*
     Serial.println(hour(t));
-      Serial.println(minute(t));
-      Serial.println(second(t));
+    Serial.println(minute(t));
+    Serial.println(second(t));
   */
 }
 
@@ -567,6 +573,7 @@ void setTimeSleeping()
     if (timeEnd - timeNow == 0)
     {
       setIsLightforSleeping(false);
+      setSleepingTimeOff(false);
       setSlider(0);
     }
 
@@ -585,12 +592,12 @@ void setAlarm()
   {
     if (timeSet - timeNow == 0)
     {
-      setBUZZLE = true;
+      setBUZZER = true;
     }
   }
   else
   {
-    setBUZZLE = false;
+    setBUZZER = false;
   }
 
   if (digitalRead(BUTTONPIN) == 0)
@@ -598,15 +605,19 @@ void setAlarm()
     setAlarmOff(false);
   }
 
-  if (setBUZZLE)
+  if (setBUZZER)
   {
-    if (millis() - timeRepeat <= 500)
+    if (millis() - timeRepeat <= 100)
     {
-      digitalWrite(BUZZLEPIN, HIGH);
+      tone(BUZZERPIN, 20);
     }
-    if (millis() - timeRepeat > 500)
+    if (millis() - timeRepeat <= 200)
     {
-      digitalWrite(BUZZLEPIN, LOW);
+      tone(BUZZERPIN, 20);
+    }
+    if (millis() - timeRepeat > 600)
+    {
+      tone(BUZZERPIN, 0);
     }
     if (millis() - timeRepeat >= 1000)
     {
@@ -615,6 +626,6 @@ void setAlarm()
   }
   else
   {
-    digitalWrite(BUZZLEPIN, LOW);
+      tone(BUZZERPIN, 0);
   }
 }
