@@ -15,16 +15,16 @@
 #include <addons/RTDBHelper.h>
 
 /* 1. Define the WiFi credentials */
-// #define WIFI_SSID "E.505"
+// #define WIFI_SSID "E.504"
 // #define WIFI_PASSWORD "12345@12345"
 // #define WIFI_SSID "PhongMayTinh"
 // #define WIFI_PASSWORD "ttcnttsgu"
-#define WIFI_SSID "SWEBI COFFEE 1"
-#define WIFI_PASSWORD "250tenlua"
+// #define WIFI_SSID "SWEBI COFFEE 1"
+// #define WIFI_PASSWORD "250tenlua"
 // #define WIFI_SSID "Phong 6.6_2.4G"
 // #define WIFI_PASSWORD "quahoianhkhang"
-// #define WIFI_SSID "htdo"
-// #define WIFI_PASSWORD "99999991"
+#define WIFI_SSID "Huy Thong"
+#define WIFI_PASSWORD "0978829111"
 #define LAMPPIN D4
 #define BUZZERPIN D8
 #define BUTTONPIN D3
@@ -383,6 +383,7 @@ void lampController()
 {
   if (isLampOn())
   {
+
     Serial.println("lamp on");
     int value = getLampValue();
     Serial.println(value);
@@ -568,7 +569,57 @@ void setTimeSleeping()
     if (timeStart - timeNow == 0)
     {
       setIsLightforSleeping(true);
-      setSlider(100);
+      setSlider(255);
+    }
+    if (timeNow == timeStart + 60)
+    {
+      setIsLightforSleeping(true);
+      setSlider(230);
+    }
+    if (timeNow == timeStart + 120)
+    {
+      setIsLightforSleeping(true);
+      setSlider(205);
+    }
+    if (timeNow == timeStart + 180)
+    {
+      setIsLightforSleeping(true);
+      setSlider(180);
+    }
+    if (timeNow == timeStart + 240)
+    {
+      setIsLightforSleeping(true);
+      setSlider(165);
+    }
+    if (timeNow == timeStart + 300)
+    {
+      setIsLightforSleeping(true);
+      setSlider(140);
+    }
+    if (timeNow == timeStart + 360)
+    {
+      setIsLightforSleeping(true);
+      setSlider(115);
+    }
+    if (timeNow == timeStart + 420)
+    {
+      setIsLightforSleeping(true);
+      setSlider(90);
+    }
+    if (timeNow == timeStart + 480)
+    {
+      setIsLightforSleeping(true);
+      setSlider(65);
+    }
+    if (timeNow == timeStart + 540)
+    {
+      setIsLightforSleeping(true);
+      setSlider(40);
+    }
+    if (timeNow >= timeStart + 600)
+    {
+      setIsLightforSleeping(true);
+      setSlider(15);
     }
     if (timeEnd - timeNow == 0)
     {
@@ -580,6 +631,11 @@ void setTimeSleeping()
     Serial.println(timeNow);
     Serial.println(timeStart);
     Serial.println(timeEnd);
+  }
+  if (!isSleepingTimeON())
+  {
+    setIsLightforSleeping(false);
+    setSlider(0);
   }
 }
 
@@ -626,6 +682,6 @@ void setAlarm()
   }
   else
   {
-      tone(BUZZERPIN, 0);
+    tone(BUZZERPIN, 0);
   }
 }
